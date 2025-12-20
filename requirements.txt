@@ -1,0 +1,97 @@
+# QuantTerminal Backend Dependencies
+# Production-ready stack - pip resolves latest compatible versions
+
+# =============================================================================
+# Core Framework & Runtime (ASGI + FastAPI)
+# =============================================================================
+fastapi              # async-first web framework, type-safe
+uvicorn[standard]    # production ASGI server
+pydantic             # data validation, settings management
+pydantic-settings    # environment-based configuration
+python-dotenv        # .env file loading (12-factor)
+
+# =============================================================================
+# Database Layer (System of Record)
+# =============================================================================
+sqlalchemy           # async ORM, battle-tested
+asyncpg              # high-performance PostgreSQL driver
+alembic              # database migrations (Phase 1+)
+
+# =============================================================================
+# Cache & Realtime Backbone (Redis)
+# =============================================================================
+redis                # async Redis client
+hiredis              # C parser for Redis performance
+
+# =============================================================================
+# Object Storage (Cloudflare R2 - S3 Compatible)
+# =============================================================================
+boto3                # S3-compatible client for R2
+aiobotocore          # async S3 operations
+
+# =============================================================================
+# Security & Authentication
+# =============================================================================
+passlib[bcrypt]      # password hashing (bcrypt)
+pyjwt                # JWT token handling
+cryptography         # cryptographic primitives
+python-multipart     # form data parsing (file uploads)
+
+# =============================================================================
+# Observability & Logging
+# =============================================================================
+loguru               # structured logging, JSON-ready
+python-json-logger   # JSON log formatting
+
+# =============================================================================
+# HTTP & External API Clients
+# =============================================================================
+httpx                # async HTTP client
+aiohttp              # alternative async HTTP
+requests             # sync HTTP fallback
+
+# =============================================================================
+# Market Data Providers (Equity & Multi-Asset)
+# =============================================================================
+# Primary sources
+polygon-api-client   # Polygon.io SDK (stocks, options, crypto)
+yfinance             # Yahoo Finance (free, reliable fallback)
+fmpsdk               # Financial Modeling Prep API
+
+# Secondary/fallback
+finnhub-python       # Finnhub market data
+# alpaca-py          # Alpaca trading API (uncomment if needed)
+
+# =============================================================================
+# Crypto Data Sources (Dedicated)
+# =============================================================================
+ccxt                 # CryptoCurrency eXchange Trading (200+ exchanges)
+pycoingecko          # CoinGecko API wrapper (prices, market data)
+python-binance       # Binance exchange API
+
+# =============================================================================
+# Utilities
+# =============================================================================
+python-dateutil      # date/time utilities
+pytz                 # timezone handling
+tenacity             # retry logic with exponential backoff
+pandas               # data manipulation (for crypto/stock data processing)
+numpy                # numerical operations
+
+# =============================================================================
+# Development & Testing (install separately with pip install -e ".[dev]")
+# =============================================================================
+# pytest
+# pytest-asyncio
+# pytest-cov
+# black              # code formatting
+# ruff               # fast linter
+# mypy               # type checking
+
+# =============================================================================
+# Notes:
+# - No version pins - pip resolves latest compatible versions
+# - Provider abstraction: Polygon/yfinance/FMP for stocks, ccxt for crypto
+# - Redis critical for WebSocket fan-out and rate limiting
+# - Crypto sources: ccxt (exchanges), pycoingecko (market data), binance (specific)
+# =============================================================================
