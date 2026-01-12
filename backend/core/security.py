@@ -6,6 +6,7 @@ JWT handling, password hashing, and authentication helpers
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 from passlib.context import CryptContext
+from fastapi import HTTPException, status
 import jwt
 from backend.core.config import settings
 
@@ -90,8 +91,11 @@ def decode_access_token(token: str) -> Optional[dict]:
         return payload
     except jwt.ExpiredSignatureError:
         return None
-    except jwt.JWTError:
-        return None
+    except jwt.PyJWTError as e:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials"
+        ) from e
 
 
 def generate_api_key() -> str:

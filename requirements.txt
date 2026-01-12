@@ -8,6 +8,7 @@ fastapi              # async-first web framework, type-safe
 uvicorn[standard]    # production ASGI server
 pydantic             # data validation, settings management
 pydantic-settings    # environment-based configuration
+email-validator      # email validation for Pydantic EmailStr
 python-dotenv        # .env file loading (12-factor)
 
 # =============================================================================
@@ -16,7 +17,7 @@ python-dotenv        # .env file loading (12-factor)
 sqlalchemy           # async ORM, battle-tested
 asyncpg              # high-performance PostgreSQL driver
 alembic              # database migrations (Phase 1+)
-
+psycopg2-binary
 # =============================================================================
 # Cache & Realtime Backbone (Redis)
 # =============================================================================
@@ -33,6 +34,7 @@ aiobotocore          # async S3 operations
 # Security & Authentication
 # =============================================================================
 passlib[bcrypt]      # password hashing (bcrypt)
+bcrypt<5.0           # IMPORTANT: passlib 1.7.4 requires bcrypt <5.0
 pyjwt                # JWT token handling
 cryptography         # cryptographic primitives
 python-multipart     # form data parsing (file uploads)
@@ -77,6 +79,13 @@ pytz                 # timezone handling
 tenacity             # retry logic with exponential backoff
 pandas               # data manipulation (for crypto/stock data processing)
 numpy                # numerical operations
+textblob             # sentiment analysis for news (Phase 2E)
+
+# =============================================================================
+# Terminal User Interface (TUI)
+# =============================================================================
+textual>=0.47.0      # modern TUI framework
+rich>=13.7.0         # rich text formatting for terminal
 
 # =============================================================================
 # Development & Testing (install separately with pip install -e ".[dev]")

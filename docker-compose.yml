@@ -1,0 +1,43 @@
+# QuantTerminal Docker Compose Configuration
+# Manages backend services: Redis cache
+version: '3.8'
+
+services:
+  # Redis cache for quote caching, session storage, rate limiting
+  redis:
+    image: redis:7-alpine
+    container_name: quantterminal-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    networks:
+      - quantterminal
+  # Future: Backend API container (when we containerize the app)
+  # backend:
+  #   build: .
+  #   container_name: quantterminal-backend
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - REDIS_URL=redis://redis:6379/0
+  #   depends_on:
+  #     redis:
+  #       condition: service_healthy
+  #   networks:
+  #     - quantterminal
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  quantterminal:
+    driver: bridge
